@@ -1,86 +1,48 @@
 import axios from "axios";
 import { useEffect, useReducer, useState} from "react";
+import { INITIAL_STATE, paginatorReducer } from "../reducer/paginatorReducer";
+
 
 export default function Maintable() {  
   const [showFilter, setShowFilter]= useState(false)
-  const [users, setUsers]= useState(null)
-  const [filteredUsers, setFilteredUsers]= useState(null)
-  const [initialTotal, setInitialTotal]= useState(0)
-  const [total, setTotal]= useState(0)
-  const [query, setQuery]= useState({
-    take:10, skip:0
-  })
+  const [state, dispatch] = useReducer(paginatorReducer, INITIAL_STATE);
   
-  const initialFilter=  {
-    userId:"",id:"", title:""
-  }
-  const [filter, setFilter]= useState(initialFilter)
-        
   useEffect(() => {
     const userFetched=async()=>{
       const response= await axios.get('https://jsonplaceholder.typicode.com/posts')
-      setUsers(response.data)
-      setFilteredUsers(response.data)
-      setTotal(response.data.length)
-      setInitialTotal(response.data.length)
+      console.log(response)
+      return dispatch({type:'USERS_FETCHED', payload:response.data})
     }
     userFetched()
-  }, []);
+  }, []);     
   
-  const queryChanged=({queryName,queryValue})=>{
-    setQuery({
-      ...query, [queryName]:queryValue
-    })
-  }
-  const filterApplied=(data)=>{
-    let usersCopy=users
-    let new_filterObj= data
-    for (const key in new_filterObj) {
-      const element = new_filterObj[key];
-      usersCopy=usersCopy.filter(user=>user[key]===element)
-    }
-    setTotal(usersCopy.length)
-    setFilteredUsers(usersCopy)
-    setQuery({
-      ...query, skip:0
-    })
-    setFilter({
-      ...initialFilter, ...new_filterObj
-    })
-    return
-  }
-
-  const reset =()=>{
-    setTotal(initialTotal)
-    setFilteredUsers(users)
-    setQuery({
-      take:10, skip:0
-    })
-    setFilter(initialFilter)
-    return 
-  }
-
-  if(!users) return  
+  
+  if(!state.users) return null //changes here 
   return (
     <div className="maintableContainer">
+      {/* changes here */}
       <Table setShowFilter={()=>setShowFilter(!showFilter)} 
-        users={filteredUsers.slice(query.skip,query.take+query.skip)}/>
-      
+        users={state.filteredUsers.slice(state.skip,state.take+state.skip)}/> 
+      {/* changes here */}
       <Paginator onPageClick={(
         {queryName, queryValue})=>
-          queryChanged({queryName, queryValue}
-        )
-      } currentPageIndex={query.skip/query.take} take={query.take}
-        total={total}
+        dispatch({type:'QUERY_CHANGED', payload:{
+          queryName, queryValue
+        }})
+      } currentPageIndex={state.skip/state.take} take={state.take}
+        total={state.total}
       />
-      {showFilter && <FilterForm
-        exFilterData={filter} 
+      {showFilter &&
+      <FilterForm
+        exFilterData={state.filter} 
         hideForm={()=>setShowFilter(false)}
-        reset={()=>reset()}
-        addFilter={(data)=>filterApplied(data)}
+        addFilter={(data)=>
+          dispatch({type:'FILTER_APPLIED', payload:data})}
+        reset={()=>
+          dispatch({type:'RESET'})}
       />}
     </div>
-  );
+    )
 }
 
 
@@ -144,7 +106,6 @@ function Paginator({take,total, onPageClick, currentPageIndex}) {
   </div>
   )
 }
-
 
 
 function FilterForm({hideForm, addFilter, reset, exFilterData}) {
