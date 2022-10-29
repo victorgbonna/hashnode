@@ -1,165 +1,86 @@
-.maintableContainer{
-    display: flex;
-    column-gap: 10%;
-    padding: 40px;
-}
-.formipt2 {
-    font-family: "Inter";
-    font-size: 13px;
-    display: flex;
-    column-gap: 10px;
-    border-radius: 20px;
-    padding: 8px 10px;
-    cursor: pointer;
-    border: 2px solid #ECF0F3;
-  }
-  
-  .optInp {
-    margin-bottom: 0;
-    display: flex;
-    column-gap: 10px;
-    cursor: pointer;
-    background: rgba(33, 63, 125, 0.1);
-    border-radius: 4px;
-    padding: 6px;
-  }
-  
-  .listcontainer ul {
-    background: #ffffff;
-    border: 2px solid #ECF0F3;
-    z-index: 78;
-    max-height: 200px;
-    padding: 0 13px;
-    overflow-y: auto;
-    border-radius: 10px;
-    position: absolute;
-    z-index: 21;
-    top: 110%;
-    width: fit-content;
-  }
-  .listcontainer li{
-    font-family: "Work Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    cursor: pointer;
-    line-height: 20px;
-    color: #0b213e;
-    padding: 5px;
-  }
-  
-.flex{
-    display: flex;
-    column-gap: 8px;
-}
-.pagdiv {
-    max-width: 400px;
-}
-  
-  .pagination {
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
-  }
-  .pagination> div {
-    padding: 0 12px;
-  }
-  
-  
-  .halfp {
-    font-family: 'Work Sans';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 29px;
-    letter-spacing: 0.04em;
-    color: #333333;
-  }
-  
-  
-  .pag {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    flex-wrap: wrap;
-  }
-  
-  .currentpagp {
-    color: #545F7D;
-  }
-  
-  .pagp {
-    color: #545F7D;
-    opacity: 0.6;
-  }
-  .maintableContainer {
-    position: relative;
-  }
-  
-  .accordion {
-    display: none;
-  }
-  
-  .table {
-    border-collapse: separate;
-    border-spacing: 0 0px;
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 30px;
-    background: #ffffff;
-  }
-  td {
-    max-width: 200px !important;
-    word-wrap: break-word;
-  }
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap");
 
-  th, td {
-    padding: 10px 7px;
-  }
+.navcont {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  padding: 0 20%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  z-index: 89;
+  background: rgba(0, 0, 0, 0.7);
+}
+.mainnav {
+  background: #ffffff;
 
-  tr th {
-    text-align: left;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 14px;
-    text-transform: uppercase;
+  width: 100%;
+  padding: 0 16px;
+  padding-top: 50px;
+  padding-bottom: 30px;
+  animation: popup 0.4s;   
+}
+
+@keyframes popup {
+  0%{
+    transform: scale(0.8);
   }
-  .table tr td {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 16px;
-    border-bottom: 2px solid rgba(33, 63, 125, 0.1);
+  100%{
+    transform: scale(1);
   }
-  
-  
-  .mobile {
-    display: none !important;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mainnav h6, .mainnav p {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  color: #000000;
+}
+
+.mainnav > img {
+  width: 30px;
+  height: 30px;
+}
+
+.btn {
+  background: #00123b;
+  font-family: "Roboto";
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 22px;
+  width: 100%;
+  padding: 13px 46px;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+.close {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-right: -5px;
+  margin-bottom: 40px;
+  border: 1px solid #757575;
+  border-radius: 50%;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0.8;
   }
-  
-  @media only screen and (max-width: 750px) {
-    .halfp {
-      font-size: 14px;
-    }
-  
-    .pagination {
-      column-gap: 4px;
-    }
-    .pagination> div {
-        padding: 0 6px;
-      }
-  
-    .pagdiv {
-      padding: 0;
-      width: 100%;
-      flex-direction: column;
-    }
-    .pagdiv p{
-        font-size: 16px !important;
-    }
-    .pagdiv .flex{
-        column-gap: 20px !important;
-    }
-    
+  to {
+    opacity: 1;
   }
+}
