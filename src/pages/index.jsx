@@ -20,11 +20,15 @@ function SignupForm({setShowModalTrue}) {
         <input type="text" key={ind} placeholder={name}/>
       )}
     </form>
-    <button onClick={setShowModalTrue}>Signup</button>
+    <Button onClick={setShowModalTrue} text="Signup"/>
   </section>
   );
 }
-
+function Button({onClick, text}) {
+  return (
+    <button onClick={onClick}>{text}</button>
+  )
+}
 function SuccessModal({setShowModalFalse,showModal}) {     
   if (!showModal) return null;
     return (
