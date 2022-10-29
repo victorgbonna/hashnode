@@ -1,12 +1,21 @@
-// import React,{createContext, useState,useEffect} from 'react'
-// export const AuthContext = createContext()
+import {createContext, useState} from 'react'
+export const SuccessContext = createContext()
 
-// export default function AuthContextProvider({children}){
-//    const [hasSucces,set]
-
-//     return(
-//         <AuthContext.Provider value={{user,setUser}}>
-//             {children}
-//         </AuthContext.Provider>
-//     )
-// }
+export default function SuccessContextComponent(
+    {children}){ 
+    const [showModal, setShowModal]= useState(false)                                   
+    
+    const setShowModalTrue=()=>{
+        setShowModal(true)
+    }
+    const setShowModalFalse=()=>{
+        setShowModal(false)
+    }
+    return(
+        <SuccessContext.Provider value={{
+            showModal, setShowModalFalse, setShowModalTrue
+        }}>
+            {children}
+        </SuccessContext.Provider>
+    )
+}

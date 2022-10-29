@@ -1,17 +1,19 @@
 import { useEffect, useContext, useState} from "react";
+import SuccessContextComponent, { SuccessContext } from "../context/successContext";
 
 export default function Home() {  
-  const [showModal, setShowModal]= useState(false)      
   return (
+    <SuccessContextComponent>
     <main>
-      <SignupForm setShowModalTrue={()=>setShowModal(true)}/>
-      <SuccessModal setShowModalFalse={()=>setShowModal(false)} showModal={showModal}/>
+      <SignupForm/>
+      <SuccessModal/>
     </main>
+    </SuccessContextComponent>
   );
 }
 
 
-function SignupForm({setShowModalTrue}) {  
+function SignupForm() {  
   return (
   <section>
     <h4>Reg form</h4>
@@ -20,16 +22,19 @@ function SignupForm({setShowModalTrue}) {
         <input type="text" key={ind} placeholder={name}/>
       )}
     </form>
-    <Button onClick={setShowModalTrue} text="Signup"/>
+    <Button text="Signup"/>
   </section>
   );
 }
-function Button({onClick, text}) {
+function Button({text}) {
+  const {setShowModalTrue}=useContext(SuccessContext)
   return (
-    <button onClick={onClick}>{text}</button>
+    <button onClick={setShowModalTrue}>{text}</button>
   )
 }
-function SuccessModal({setShowModalFalse,showModal}) {     
+function SuccessModal() {     
+  const {showModal, setShowModalFalse}=useContext(SuccessContext)
+
   if (!showModal) return null;
     return (
     <div
@@ -56,7 +61,7 @@ function SuccessModal({setShowModalFalse,showModal}) {
           </svg>
             <h6 className='suc'>Great</h6>
             <p className='success'>
-              You have registered succesfilly
+              You have registered successfully
             </p>
           </div>
         </div>
